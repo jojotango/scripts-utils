@@ -1,9 +1,9 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 """
-Use exemple:
+Usage exemple:
     input  :./script username password
-    output : username:passwordhashed
+    output : username:bcrypthash
 
 Add to Htpasswd filename:
     ./script username password >> /etc/radicale/users
