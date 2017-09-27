@@ -11,8 +11,11 @@ url="https://github.com/haiwen/${pkgname}"
 license=('Apache')
 depends=("seafile-server" "python2-virtualenv")
 makedepends=('python2-pip')
-source=("${pkgname}-${pkgver}-server.tar.gz::${url}/archive/v${pkgver}-server.tar.gz")
-sha256sums=('04398c57bd4fa17050530ab47d4f1410196f3cd925d7c1067af00e0c848a3799')
+install="${pkgname}.install"
+source=("${pkgname}-${pkgver}-server.tar.gz::${url}/archive/v${pkgver}-server.tar.gz"
+        "seahub-preupgrade")
+sha256sums=('04398c57bd4fa17050530ab47d4f1410196f3cd925d7c1067af00e0c848a3799'
+            '9c1f68c2e7af52f51a77733c869552c7c2d809f78758ca5dedc13f79d46f0324')
 # Strip is not happy on precompiled libs in virtualenv, temporary disable
 options=("!strip")
 
@@ -29,6 +32,10 @@ package() {
   install -dm755 "${pkgdir}/usr/share/seafile-server/seahub"
   cp -r -p "${srcdir}/seahub-${pkgver}-server/"* \
     "${pkgdir}/usr/share/seafile-server/seahub/"
+
+  # Install seahub preupgrade script
+  install -D -m755 "${srcdir}/seahub-preupgrade" \
+    "${pkgdir}/usr/bin/seahub-preupgrade"
 
   # Create private virtualenv
   virtualenv2 --system-site-packages "${pkgdir}/usr/lib/seafile/seafileenv"
