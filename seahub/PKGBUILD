@@ -4,7 +4,7 @@
 
 pkgname=seahub
 pkgver=6.2.2
-pkgrel=2
+pkgrel=1
 pkgdesc="The web end of seafile server"
 arch=('i686' 'x86_64' 'armv7h' 'armv6h' 'aarch64')
 url="https://github.com/haiwen/${pkgname}"
