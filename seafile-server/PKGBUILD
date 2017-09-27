@@ -4,13 +4,13 @@
 
 pkgname=seafile-server
 pkgver=6.2.1
-pkgrel=3
+pkgrel=4
 pkgdesc="Seafile is an online file storage and collaboration tool"
 arch=('i686' 'x86_64' 'armv7h' 'armv6h' 'aarch64')
 url="https://github.com/haiwen/${pkgname}"
 license=('AGPL3')
 makedepends=("vala" "intltool")
-depends=("seafile" "wget" "sqlite" "fuse" "ccnet-server" "libarchive"
+depends=("seafile" "seahub" "wget" "sqlite" "fuse" "ccnet-server" "libarchive"
          "libevhtp-seafile" "git" "ffmpeg"
          "python2-requests" "python2-flup"
          "python2-setuptools" "python2-pillow" "mysql-python")
