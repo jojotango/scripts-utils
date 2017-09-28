@@ -26,6 +26,13 @@
              os.path.join(self.install_path, 'seahub'),
              os.path.join(self.install_path, 'runtime'),
          ]
+--- a/scripts/seafile.sh
++++ b/scripts/seafile.sh
+@@ -20,2 +20,2 @@
+-seaf_controller="${INSTALLPATH}/seafile/bin/seafile-controller"
+-
++seaf_controller="/usr/bin/seafile-controller"
++
 --- a/tools/seafile-admin
 +++ b/tools/seafile-admin
 @@ -857,6 +861,10 @@
