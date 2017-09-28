@@ -73,9 +73,12 @@ package() {
     rm -rf "${pkgdir}/usr/include"
 
     # Install all scripts
-    mkdir -p "${pkgdir}/usr/share/${pkgname}/"
+    mkdir -p "${pkgdir}/usr/share/${pkgname}/runtime"
     cp -r -p "${srcdir}/${pkgname}-${pkgver}-server/scripts/"* \
              "${pkgdir}/usr/share/${pkgname}/"
+    
+    mv "${pkgdir}/usr/share/${pkgname}/seahub.conf" \
+       "${pkgdir}/usr/share/${pkgname}/runtime/"
     
     # Remove win32 and other distributions specific scripts
     rm -rf "${pkgdir}/usr/share/${pkgname}/build"
