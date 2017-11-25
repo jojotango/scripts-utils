@@ -17,28 +17,28 @@
 # along with this program. If not, see <https://www.gnu.org/licenses/>.
 
 
-DEST='pdf_compressed';
+DEST='pdf_compressed'
 
 if [[ $# -ge 1 ]] && [[ $1 != '--help' ]]; then
-    [[ -d "$DEST" ]] || mkdir "$DEST" 
-    
+    [[ -d "$DEST" ]] || mkdir "$DEST"
+
     for argv in "$@"; do
         if [[ $(file "$argv" | cut -d' ' -f2) == 'PDF' ]]; then
+            printf "    ==> Compress %b... " "$argv" 
             gs -sDEVICE=pdfwrite \
                -dCompatibilityLevel=1.4 \
                -dPDFSETTINGS=/screen \
                -dNOPAUSE \
                -dQUIET \
                -dBATCH \
-               -sOutputFile="$DEST/$argv" "$argv"
+               -sOutputFile="$DEST/$argv" "$argv" && printf "Ok\n"
         fi
     done
-
 else
     script=$(basename "$0")
-    
+
     echo "$script compress PDF files in '$DEST/' current directorie"
-    echo "Usage exemple:" 
+    echo 'Usage exemple:'
     echo "    $script file1.pdf file2.pdf"
     echo "    $script *.pdf"
 fi
