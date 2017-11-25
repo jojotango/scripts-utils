@@ -23,7 +23,7 @@ if [[ $# -ge 1 ]] && [[ $1 != '--help' ]]; then
     [[ -d "$DEST" ]] || mkdir "$DEST"
 
     for argv in "$@"; do
-        if [[ $(file "$argv" | cut -d' ' -f2) == 'PDF' ]]; then
+        if [[ -f $argv ]] && [[ $(head -c 4 "$argv") == '%PDF' ]]; then
             printf "Compress ==> %b... " "$argv" 
             gs -sDEVICE=pdfwrite \
                -dCompatibilityLevel=1.4 \
