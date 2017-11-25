@@ -24,7 +24,7 @@ if [[ $# -ge 1 ]] && [[ $1 != '--help' ]]; then
 
     for argv in "$@"; do
         if [[ $(file "$argv" | cut -d' ' -f2) == 'PDF' ]]; then
-            printf "    ==> Compress %b... " "$argv" 
+            printf "Compress ==> %b... " "$argv" 
             gs -sDEVICE=pdfwrite \
                -dCompatibilityLevel=1.4 \
                -dPDFSETTINGS=/screen \
