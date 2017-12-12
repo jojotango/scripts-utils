@@ -1,10 +1,11 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-"""radicale-user usage:
+"""Add a Radicale user without Htpasswd (Apache package)
+Usage:
     input  : radicale-user username
     output : username:bcrypthash
 
-Redirect the output to yours user(s) file path:
+Redirect the output to your(s) user(s) file:
     radicale-user username >> /etc/radicale/users
 """
 
