@@ -119,7 +119,7 @@ if __name__ == '__main__':
         sys.stdout.write(
             '    {0} {1} 0m    |'.format(
                 value,                            # 0
-                Color.normal(' bold ', color),    # 1
+                Color.bold(' bold ', color),    # 1
             )
         )
         # Background colors
