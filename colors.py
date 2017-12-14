@@ -34,7 +34,7 @@ Usage exemple:
 
 
 class Color(object):
-    """Defines a Color class object for colorise your scripts outputs
+    """Defines a Color class object for colorise outputs
     """
     def __init__(self):
         self.__colors = {
@@ -48,10 +48,9 @@ class Color(object):
             'cyan': '36m',
             'white': '37m',
         }
-
         self.__prefix = '\033['
 
-    def normal(self, string, color='none'):
+    def normal(self, string, color):
         """Return string argv with light weight color argv
         """
         return '{0}{1}{0}{2}'.format(
@@ -72,7 +71,7 @@ class Color(object):
             self.__colors['none']      # 2
         )
 
-    def background(self, string, color='none'):
+    def background(self, string, color):
         """Return string argv with background color argv
         """
         return '{0}{1}{0}{2}'.format(
