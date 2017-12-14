@@ -37,96 +37,83 @@ class Color(object):
     """Defines a Color class object for colorise your scripts outputs
     """
     def __init__(self):
-        self.__normal_colors = {
-            'black': '\033[30m',
-            'red': '\033[31m',
-            'green': '\033[32m',
-            'yellow': '\033[33m',
-            'blue': '\033[34m',
-            'purple': '\033[35m',
-            'cyan': '\033[36m',
-            'white': '\033[37m',
+        self.__colors = {
+            'none': '0m',
+            'black': '30m',
+            'red': '31m',
+            'green': '32m',
+            'yellow': '33m',
+            'blue': '34m',
+            'purple': '35m',
+            'cyan': '36m',
+            'white': '37m',
         }
-        self.__bold_colors = {
-            'black': '\033[1;30m',
-            'red': '\033[1;31m',
-            'green': '\033[1;32m',
-            'yellow': '\033[1;33m',
-            'blue': '\033[1;34m',
-            'purple': '\033[1;35m',
-            'cyan': '\033[1;36m',
-            'white': '\033[1;37m',
-        }
-        self.__background_colors = {
-            'black': '\033[40m',
-            'red': '\033[41m',
-            'green': '\033[42m',
-            'yellow': '\033[43m',
-            'blue': '\033[44m',
-            'purple': '\033[45m',
-            'cyan': '\033[46m',
-            'white': '\033[47m',
-        }
-        self.__reset = '\033[0m'
 
-    def normal(self, string, color='white'):
-        """Return string argv with normal weight color argv
+        self.__prefix = '\033['
+
+    def normal(self, string, color='none'):
+        """Return string argv with light weight color argv
         """
-        return self.__normal_colors[color] + string + self.__reset
+        return '{0}{1}{0}{2}'.format(
+            self.__prefix,                    # 0
+            self.__colors[color] + string,    # 1
+            self.__colors['none']             # 2
+        )
 
-    def bold(self, string, color='white'):
+    def bold(self, string, color='none'):
         """Return string argv with bold weight color argv
         """
-        return self.__bold_colors[color] + string + self.__reset
+        color = self.__colors[color]
+        if  color == '0m':
+            color = '1m'
+        return '{0}{1}{0}{2}'.format(
+            self.__prefix,             # 0
+            '1;' + color + string,     # 1
+            self.__colors['none']      # 2
+        )
 
-    def background(self, string, color='white'):
+    def background(self, string, color='none'):
         """Return string argv with background color argv
         """
-        return self.__background_colors[color] + string + self.__reset
+        return '{0}{1}{0}{2}'.format(
+            self.__prefix,                                      # 0
+            self.__colors[color].replace('3', '4') + string,    # 1
+            self.__colors['none']                               # 2
+        )
 
-    def get_normal_dict(self):
-        return self.__normal_colors
-
-    def get_bold_dict(self):
-        return self.__bold_colors
-
-    def get_background_dict(self):
-        return self.__background_colors
+    def get_colors_dict(self):
+        return self.__colors
 
 if __name__ == '__main__':
     import sys
 
     Color = Color()
 
-    # Dicts
-    bold_dict = Color.get_bold_dict()
-    normal_dict = Color.get_normal_dict()
-    background_dict = Color.get_background_dict()
-
-    colors = list(normal_dict.keys())
+    colors_dict = Color.get_colors_dict()
+    colors = list(colors_dict.keys())
 
     for color in colors:
         # Normal colors
-        value = normal_dict[color].replace('\033[', '')
         sys.stdout.write(
-            '    {0} {1} 0m    |'.format(
-                value,                              # 0
+            '    {0:3} {1} 0m    |'.format(
+                colors_dict[color],                 # 0
                 Color.normal(' normal ', color),    # 1
             )
         )
         # Bold colors
-        value = bold_dict[color].replace('\033[', '')
+        value = colors_dict[color]
+        if value == '0m':
+            value = '1m'
         sys.stdout.write(
-            '    {0} {1} 0m    |'.format(
-                value,                            # 0
+            '    {0:5} {1} 0m    |'.format(
+                '1;' + value,                   # 0
                 Color.bold(' bold ', color),    # 1
             )
         )
         # Background colors
-        value = background_dict[color].replace('\033[', '')
         sys.stdout.write(
-            '    {0} {1} 0m     |'.format(
-                value,                                      # 0
+            '    {0:3} {1} 0m     |'.format(
+                colors_dict[color].replace('3', '4'),       # 0
                 Color.background(' background ', color),    # 1
             )
         )
